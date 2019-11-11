@@ -1,3 +1,10 @@
 *.flv
 /aula2/ListaDeTarefas/nbproject/private/
 /aula2/ListaDeTarefas/build/
+/aula3/ListaDeTarefas/build/
+/aula3/ListaDeTarefas/nbproject/private/
+/aula3/ListaDeTarefas/dist/
+/aula3/CadastroDeUsuarios/build/
+/aula3/CadastroDeUsuarios/nbproject/private/
+/aula3/MySQLConnector/build/
+/aula3/MySQLConnector/nbproject/private/
