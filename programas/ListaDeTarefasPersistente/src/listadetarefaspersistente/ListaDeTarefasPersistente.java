@@ -74,7 +74,7 @@ public class ListaDeTarefasPersistente {
                     u.setEmail(email);
                     u.setSenha(senha);
 
-                    boolean cadastrado = inserirUsuario(email, senha);
+                    boolean cadastrado = inserirUsuario(u);
                     if (cadastrado) {
                         System.out.println("Usuário cadastrado com sucesso!");
                     } else {
@@ -283,8 +283,9 @@ public class ListaDeTarefasPersistente {
                     Tarefa t = new Tarefa();
                     t.setTitulo(titulo);
                     t.setFinalizada(false);
+                    t.setUsuarioId(usuarioLogado.getId());
 
-                    boolean inserida = inserirTarefa(titulo, usuarioLogado.getId());
+                    boolean inserida = inserirTarefa(t);
 
                     if (inserida) {
                         System.out.println("Tarefa adicionada com sucesso!");
@@ -464,7 +465,7 @@ public class ListaDeTarefasPersistente {
      * Métodos para realizar Consultas no banco de dados
      */
     
-    static boolean inserirUsuario(String email, String senha) {
+    static boolean inserirUsuario(Usuario u) {
         boolean cadastrado = false;
 
         registrarDriver();
@@ -473,8 +474,8 @@ public class ListaDeTarefasPersistente {
 
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO lista_tarefas.usuario (email, senha) VALUES (?, ?)");
 
-            stmt.setString(1, email);
-            stmt.setString(2, senha);
+            stmt.setString(1, u.getEmail());
+            stmt.setString(2, u.getSenha());
 
             int linhasAlteradas = stmt.executeUpdate();
 
@@ -567,16 +568,16 @@ public class ListaDeTarefasPersistente {
         return alterado;
     }
 
-    static boolean inserirTarefa(String titulo, int usuarioId) {
+    static boolean inserirTarefa(Tarefa t) {
         boolean inserido = false;
         registrarDriver();
         try (Connection conn = abrirConexao()) {
 
             PreparedStatement stmt = conn.prepareCall("INSERT INTO lista_tarefas.tarefa (titulo, finalizada, usuario_id) VALUES (?, ?, ?)");
 
-            stmt.setString(1, titulo);
+            stmt.setString(1, t.getTitulo());
             stmt.setBoolean(2, false);
-            stmt.setInt(3, usuarioId);
+            stmt.setInt(3, t.getUsuarioId());
 
             int linhasAlteradas = stmt.executeUpdate();
 
