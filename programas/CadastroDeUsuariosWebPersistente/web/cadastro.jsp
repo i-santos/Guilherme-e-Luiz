@@ -9,6 +9,7 @@
 <%
     String email = (String) request.getParameter("email");
     String erroEmail = (String) request.getAttribute("erroEmail");
+    String erro = (String) request.getAttribute("erro");
     
     if (email == null) {
         email = "";
@@ -36,6 +37,9 @@
             <p>
                 <% if (erroEmail != null) {%>
                     <%= "* " + erroEmail %>
+                <% }%>
+                <% if (erro != null) {%>
+                    <%= "* " + erro %>
                 <% }%>
             </p>
         </form>
