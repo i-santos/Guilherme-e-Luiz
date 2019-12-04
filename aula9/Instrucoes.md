@@ -16,5 +16,24 @@ Fazer a Lista de Tarefas com Java Web, MySQL, organizando os arquivos de forma s
 
 Modificar as páginas `JSP` para utilizar a `JSTL`.
 
-Se for de interesse, estudar mais detalhadamente a `JSTL`, para podermos tirar eventuais dúvidas.
+
+
+---
+
+### **OBSERVAÇÃO: **
+
+**Os arquivos das bibliotecas necessárias para usar o `JSTL` estão na pasta raiz do repositório no `GitHub`. **
+
+**O `tomcat` já possui as bibliotecas. Os arquivos .jar se encontram na pasta `tomcat/webapps/examples/WEB-INF/lib/`**.
+
+**Os nomes dos arquivos são:**
+
+- taglibs-standard-impl-1.2.5.jar
+- taglibs-standard-spec-1.2.5.jar
+
+---
+
+
+
+Se for de interesse, estudar mais detalhadamente a `JSTL` para podermos tirar eventuais dúvidas.
 
