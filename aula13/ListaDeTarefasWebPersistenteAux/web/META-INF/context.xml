@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/ListaDeTarefasWebPersistenteAux">
+  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/MySQL" password="" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306" username="root"/>
+  <!--
+    <ResourceLink name="jdbc/MySQL"
+                  global="jdbc/MySQL"
+                  auth="Container"
+                  type="javax.sql.DataSource" />-->
+</Context>
