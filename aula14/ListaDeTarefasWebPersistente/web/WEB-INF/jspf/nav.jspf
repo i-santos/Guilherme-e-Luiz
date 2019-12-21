@@ -1,0 +1,5 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<a href="HomeServlet">Home</a>
+<a href="PerfilServlet">Perfil</a>
+<a href="LogoutServlet">Logout</a>
