@@ -4,7 +4,8 @@
 
 Links para os vídeos
 
-- Implantação do projeto no Heroku: [https://youtu.be/4UlIc24W3zs](https://youtu.be/4UlIc24W3zs)
+- Alterações no projeto local (preparação para enviar para o servidor): [https://youtu.be/HEwriiyuWWs](https://youtu.be/HEwriiyuWWs)
+- Enviando o projeto para o servidor: [https://youtu.be/2QZvcrGEf_U](https://youtu.be/2QZvcrGEf_U)
 
 
 
@@ -22,6 +23,14 @@ Fazer todas as alterações e ações necessárias no projeto para que ele funci
 6. Adicionar as bibliotecas de conexão com o banco (Driver) e as bibliotecas da JSTL via Maven (ao invés de fazer isso manualmente)
 7. Adicionar um executável do *Tomcat* via Maven (ao invés de termos ele instalado no computador)
 8. Subir o projeto para o Heroku
+
+
+
+## Código de conf do NetBeans (para usar o Maven)
+
+```shell
+netbeans_default_options= -J-Djdk.lang.Process.allowAmbiguousCommands=true
+```
 
 
 
@@ -48,6 +57,32 @@ Fazer todas as alterações e ações necessárias no projeto para que ele funci
         </execution>
     </executions>
 </plugin>
+```
+
+
+
+## Dependências Maven
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+<dependency>
+    <groupId>org.apache.taglibs</groupId>
+    <artifactId>taglibs-standard-impl</artifactId>
+    <version>1.2.5</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-spec -->
+<dependency>
+    <groupId>org.apache.taglibs</groupId>
+    <artifactId>taglibs-standard-spec</artifactId>
+    <version>1.2.5</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.2.9</version>
+</dependency>
+
 ```
 
 

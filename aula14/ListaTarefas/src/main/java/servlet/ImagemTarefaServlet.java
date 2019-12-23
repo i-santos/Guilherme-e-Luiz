@@ -1,17 +1,17 @@
 package servlet;
 
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Tarefa;
 import modelo.Usuario;
 
 @WebServlet(name = "ImagemTarefaServlet", urlPatterns = {"/ImagemTarefaServlet"})
@@ -21,33 +21,30 @@ public class ImagemTarefaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nomeImagem = request.getParameter("imagem");
+        String idTarefa = request.getParameter("tarefa");
+        int id = Integer.parseInt(idTarefa);
 
         HttpSession session = request.getSession();
 
         Usuario u = (Usuario) session.getAttribute("usuario");
 
-        String idUsuario = String.valueOf(u.getId());
+        Tarefa tarefa = null;
+        for (Tarefa t : u.getTarefas()) {
+            if (t.getId() == id) {
+                tarefa = t;
+                break;
+            }
+        }
+        
+        try (InputStream stream = new BufferedInputStream(new ByteArrayInputStream(tarefa.getImagem())) ) {
 
-        String uploadsDiretorio = "C:\\Users\\wagne\\Desktop\\uploads_lista_tarefas";
+            String contentType = URLConnection.guessContentTypeFromStream(stream);
+            response.setContentType(contentType);
 
-        File pastaUsuario = new File(uploadsDiretorio, idUsuario);
+            byte[] buffer = new byte[10240];
+            while (stream.read(buffer) != -1) {
 
-        if (pastaUsuario.exists()) {
-
-            File caminhoImagem = new File(pastaUsuario, nomeImagem);
-
-            try (InputStream stream = Files.newInputStream(caminhoImagem.toPath(), StandardOpenOption.READ)) {
-
-                String contentType = URLConnection.guessContentTypeFromStream(stream);
-                response.setContentType(contentType);
-                
-                byte[] buffer = new byte[10240];
-                while (stream.read(buffer) != -1) {
-                    
-                    response.getOutputStream().write(buffer);
-                    
-                }
+                response.getOutputStream().write(buffer);
 
             }
 

@@ -6,6 +6,7 @@
 package servlet;
 
 import dao.TarefaDAO;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,36 +50,22 @@ public class AdicionarTarefaServlet extends HttpServlet {
         Usuario u = (Usuario) session.getAttribute("usuario");
 
         String titulo = request.getParameter("titulo");
-
-        String imagem = null;
         Part arqImagem = request.getPart("imagem");
-        String nomeImagem = Paths.get(arqImagem.getSubmittedFileName()).getFileName().toString();
 
-        String uploadsDiretorio = "C:\\Users\\wagne\\Desktop\\uploads_lista_tarefas";
-        
-        String idUsuario = String.valueOf(u.getId());
-        
-        // /home/igor/uploads_lista_tarefas/1
-        File uploadsDir = new File(uploadsDiretorio, idUsuario);
-        
-        if (uploadsDir.exists() || uploadsDir.mkdir()) {
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        byte[] buffer = new byte[10240];
+        try (InputStream stream = arqImagem.getInputStream()) {
             
-            // /home/igor/uploads_lista_tarefas/1/imagem.png
-            File caminhoImagem = new File(uploadsDir, nomeImagem);
-            
-            try (InputStream stream = arqImagem.getInputStream()) {
-                Files.copy(stream, caminhoImagem.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                
-                imagem = nomeImagem;
+            while (stream.read(buffer) != -1) {
+                byteArray.write(buffer);
             }
-            
         }
-        
+
         Tarefa t = new Tarefa();
         t.setTitulo(titulo);
         t.setFinalizada(false);
         t.setIdUsuario(u.getId());
-        t.setNomeImagem(imagem);
+        t.setImagem(byteArray.toByteArray());
 
         boolean sucesso = TarefaDAO.inserirTarefa(t);
 
